@@ -40,6 +40,7 @@
         ...
       </p>
       
+      <!-- Соцсети с текстом -->
       <div id="social-links" class="mt-8 flex flex-col sm:flex-row gap-4 sm:gap-6 animate-fade-in delay-200 items-center">
       </div>
     </section>
@@ -58,15 +59,19 @@
           </p>
         </div>
 
+        <!-- Задачи -->
         <div class="mt-10 animate-fade-in delay-400">
           <h3 class="text-xl font-semibold text-gray-900 mb-4">Мои задачи:</h3>
           <ul id="project-tasks" class="space-y-3">
+            <!-- Задачи вставляются через JS -->
           </ul>
         </div>
 
+        <!-- Стек технологий -->
         <div class="mt-10 animate-fade-in delay-400">
           <h3 class="text-xl font-semibold text-gray-900 mb-4">Стек технологий:</h3>
           <div id="project-stack" class="flex flex-wrap gap-2">
+            <!-- Стек вставляется через JS -->
           </div>
         </div>
       </div>
@@ -116,6 +121,7 @@
         },
       };
 
+      // === БАЗОВЫЕ ПОЛЯ ===
       document.title = `${config.name} — Портфолио`;
       document.getElementById('hero-name').textContent = config.name;
       document.getElementById('hero-title').textContent = config.title;
@@ -126,6 +132,7 @@
       document.getElementById('diploma-img').alt = config.diploma.alt;
       document.getElementById('footer-text').textContent = `© ${new Date().getFullYear()} ${config.name}. Все права защищены.`;
 
+      // === СОЦСЕТИ С ТЕКСТОМ ===
       const socialContainer = document.getElementById('social-links');
       const icons = {
         github: '<path d="M9 19c-4.3 1.4 -4.3 -2.5 -6 -3m12 5v-3.5c0 -1 .1 -1.4 -.5 -2c2.8 -.3 5.5 -1.4 5.5 -6a4.6 4.6 0 0 0 -1.3 -3.2a4.2 4.2 0 0 0 -.1 -3.2s-1.1 -.3 -3.5 1.3a12.3 12.3 0 0 0 -6.2 0c-2.4 -1.6 -3.5 -1.3 -3.5 -1.3a4.2 4.2 0 0 0 -.1 3.2a4.6 4.6 0 0 0 -1.3 3.2c0 4.6 2.7 5.7 5.5 6c-.6 .6 -.6 1.2 -.5 2v3.5"/>',
@@ -136,7 +143,7 @@
       const labels = {
         github: 'GitHub',
         telegram: 'Telegram',
-        email: config.social.email  
+        email: config.social.email
       };
       
       Object.entries(config.social).forEach(([key, link]) => {
@@ -154,22 +161,28 @@
             </a>`;
         }
       });
-ъ
-      const tasksContainer = document.getElementById('project-tasks');
-      config.project.tasks.forEach(task => {
-        tasksContainer.innerHTML += `
-          <li class="flex items-start gap-3 text-gray-700">
-            <svg class="w-5 h-5 text-blue-600 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
-            </svg>
-            <span>${task}</span>
-          </li>`;
-      });
 
+      // === ЗАДАЧИ (исправлено) ===
+      const tasksContainer = document.getElementById('project-tasks');
+      if (config.project.tasks && config.project.tasks.length > 0) {
+        config.project.tasks.forEach(task => {
+          tasksContainer.innerHTML += `
+            <li class="flex items-start gap-3 text-gray-700">
+              <svg class="w-5 h-5 text-blue-600 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
+              </svg>
+              <span>${task}</span>
+            </li>`;
+        });
+      }
+
+      // === СТЕК ТЕХНОЛОГИЙ (исправлено) ===
       const stackContainer = document.getElementById('project-stack');
-      config.project.stack.forEach(tech => {
-        stackContainer.innerHTML += `<span class="tech-tag">${tech}</span>`;
-      });
+      if (config.project.stack && config.project.stack.length > 0) {
+        config.project.stack.forEach(tech => {
+          stackContainer.innerHTML += `<span class="tech-tag">${tech}</span>`;
+        });
+      }
     </script>
   </body>
 </html>
